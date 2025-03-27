@@ -202,5 +202,28 @@
       ", XF86AudioPrev, exec, playerctl previous"
       ", switch:Lid Switch, exec, hyprlock && systemd suspend"
     ];
+
+    windowrule = [
+      "float, ^(org.pulseaudio.pavucontrol)$"
+      "center, ^(org.pulseaudio.pavucontrol)$"
+      "size 800 500, ^(org.pulseaudio.pavucontrol)$"
+    ];
+
+    windowrulev2 = [
+      "noanim, class:^(org.telegram.desktop)$, title:^(Media viewer)$"
+      "float, class:^(org.telegram.desktop)$, title:^(Media viewer)$"
+
+      "float, class:^(zen)$, title:^(Picture-in-Picture)$"
+      "size 480 270, class:^(zen)$, title:^(Picture-in-Picture)$"
+      "move 1400 780, class:^(zen)$, title:^(Picture-in-Picture)$"
+      "pin, class:^(zen)$, title:^(Picture-in-Picture)$"
+      "nodim, class:^(zen)$, title:^(Picture-in-Picture)$"
+
+      "workspace 3 silent, class:^(org.telegram.desktop)$"
+      "workspace 4 silent, class:^(Spotify)$"
+
+      "suppressevent maximize, class:.*"
+      "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+    ];
   };
 }
