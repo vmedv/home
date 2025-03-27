@@ -1,0 +1,290 @@
+(deflisten workspaces-slave-listen :initial "[]" "bash ~/.config/eww/scripts/get-workspaces 1")
+(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace")
+
+(defwidget workspaces-slave []
+    (box :space-evenly false
+				:orientation "v"
+      (label :text "${workspaces-slave-listen}${current_workspace}" :visible false)
+      (for workspace in workspaces-slave-listen
+        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+          (box :class "workspace-entry ${workspace.windows > 0 ? "occupied" : "empty"}"
+            (label :text "${workspace.windows > 0 ? "" : ""}" :class "workspace-entry ${workspace.id == current_workspace ? "current" : ""}" )
+            )
+          )
+        )
+      )
+  )
+
+;; ------------------ ;;
+
+(deflisten workspaces-master-listen :initial "[]" "bash ~/.config/eww/scripts/get-workspaces 0")
+(defwidget workspaces-master []
+    (box :space-evenly false
+    	 :orientation "v"
+      (label :text "${workspaces-master-listen}${current_workspace}" :visible false)
+      (for workspace in workspaces-master-listen
+        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+          (box  :class "workspace-entry ${workspace.windows > 0 ? "occupied" : "empty"}"
+		:orientation "v"
+            (label 
+	    	:text "${workspace.windows > 0 ? "" : ""}"  
+		:class "workspace-entry ${workspace.id == current_workspace ? "current" : ""}" )
+            )
+          )
+        )
+      )
+  )
+
+(defwidget media[]
+	(label :text "M")
+)
+
+(defwidget top[]
+	(box	:class "top"
+		:orientation "v"
+		:space-evenly false
+		(workspaces-master)
+		(media)
+	)
+)
+
+(defpoll hours	:interval "1s"	"date '+%H'")
+(defpoll mins	:interval "1s"	"date '+%M'")
+(defpoll secs	:interval "1s"	"date '+%S'")
+(defwidget clock[]
+	(box 	:class "clock"
+		:orientation "v"
+		:space-evenly false
+		:valign "center"
+		(label :text hours :class "clock")
+		(label :text mins :class "clock")
+		(label :text secs :class "clock")
+	)
+)
+
+(defwidget center[]
+	(box	:class "center"
+		:orientation "v"
+		(clock)
+	)
+)
+
+;; ----- network ----- ;;
+
+(defpoll wifi-present 	:interval "1s"	
+	"nmcli -t -f active,ssid dev wifi | egrep '^yes' | cut -d\: -f1")
+(defpoll wifi-name :interval "1s"	
+	"nmcli -t -f active,ssid dev wifi | egrep '^yes' | cut -d\: -f2")
+(defwidget network[]
+	(button :onclick "wezterm start -- nmtui"
+  		(label  :text "" 
+			:tooltip "${wifi-present == 'yes' ? wifi-name : "Not connected" }"
+			:class "network icon")
+ 	)
+)
+
+(defwidget controls[]
+	(box :class "contorls"
+			:orientation "v"
+			:space-evenly false
+	(brightness)
+	(volume)
+	(mic)
+	)
+)
+
+; ----- brightness ----- ;
+
+(defvar bright-reveal false)
+
+(defpoll current-brightness :interval "1s" "brightnessctl -m | awk -F, '{print substr($4, 0, length($4)-1)}' | tr -d '%'")
+
+(defwidget brightness []
+  (eventbox :onhover "${EWW_CMD} update bright-reveal=true"   
+  			:onhoverlost "${EWW_CMD} update bright-reveal=false"
+  			(box    :orientation "v"  
+			  		:space-evenly false  
+  			(revealer :transition "slideup" 
+			  		  :reveal bright-reveal
+					  :duration "500ms"
+  			(scale :class "brightness" 
+			  	   :value current-brightness 
+				   :tooltip "Brightness: ${current-brightness}%" 
+				   :onchange "brightnessctl set {}%" 
+				   :orientation "v" 
+				   :flipped true 
+				   :max 101 
+				   :min 0))
+  			(label :class "brightness icon" 
+			  	   :text ""))))
+
+
+; ----- volume ----- ;
+
+(defvar vol-reveal false)
+
+(defpoll icon-vol		 :interval "1s" "scripts/get-sound.sh icon")
+(defpoll current-vol :interval "1s" "scripts/get-sound.sh percent")
+
+(defwidget volume[]
+  (eventbox :onhover "${EWW_CMD} update vol-reveal=true"   
+  			:onhoverlost "${EWW_CMD} update vol-reveal=false"
+  			(box    :orientation "v"  
+			  		:space-evenly false  
+  			(revealer :transition "slideup" 
+			  		  :reveal vol-reveal
+					  :duration "500ms"
+  			(scale :class "volume" 
+			  	   :value current-vol
+				   :tooltip "Volume: ${current-vol}%" 
+				   :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%" 
+				   :orientation "v" 
+				   :flipped true 
+				   :max 101 
+				   :min 0))
+  			(button :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" 
+				(label :class "volume icon" 
+			  	   :text icon-vol)
+				)
+				)
+				)
+				)
+
+
+; ----- mic ----- ;
+
+(defvar mic-reveal false)
+
+(defpoll icon-mic    :interval "1s" "scripts/get-mic.sh icon")
+(defpoll current-mic :interval "1s" "scripts/get-mic.sh percent")
+
+(defwidget mic[]
+  (eventbox :onhover "${EWW_CMD} update mic-reveal=true"   
+  			:onhoverlost "${EWW_CMD} update mic-reveal=false"
+  			(box    :orientation "v"  
+			  		:space-evenly false  
+  			(revealer :transition "slideup" 
+			  		  :reveal mic-reveal
+					  :duration "500ms"
+  			(scale :class "mic" 
+			  	 :value current-mic
+           :tooltip "Mic Volume: ${current-mic}%" 
+				   :onchange "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ {}%" 
+				   :orientation "v" 
+				   :flipped true 
+				   :max 101 
+				   :min 0))
+  			(button :onclick "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle" 
+				(label :class "mic icon" 
+			  	   :text icon-mic)
+				)
+				)
+				)
+				)
+
+;; ----- battery ----- ;;
+
+(defvar bat-reveal 		false)
+
+(defpoll battery-icon		:interval "1s"	"scripts/battery icon")
+(defpoll battery-capacity	:interval "1s"	"scripts/battery percent")
+
+(defwidget battery[]
+	(eventbox 	:onhover 	"${EWW_CMD} update bat-reveal=true"
+		  	:onhoverlost 	"${EWW_CMD} update bat-reveal=false"
+		  	(box	:class 		"battery"
+				:orientation 	"v"
+				:space-evenly 	false
+				(revealer :transition 	"slideup"
+					  :reveal 	bat-reveal
+					  :duration 	"500ms"
+					  (label :text 	"${battery-capacity}%")
+		  		)
+				(label :text battery-icon :class "battery icon")
+		  	)
+	)
+)
+
+;; ----- power box ----- ;;
+
+(defvar power-reveal 		false)
+
+(defwidget power[]
+	(eventbox 	:onhover	"${EWW_CMD} update power-reveal=true"
+		  	:onhoverlost	"${EWW_CMD} update power-reveal=false"
+		 	(box	:class "power"
+				:orientation "v"
+				:space-evenly false
+				(revealer	:transition	"slideup"
+						:reveal		power-reveal
+						:duration	"500ms"
+						(box	:orientation "v"
+							(button :onclick "systemctl suspend" 
+								(label :text "󰒲" :class "power icon")
+							)
+							(button :onclick "systemctl hibernate"
+								(label :text "󰤄" :class "power icon")
+							)
+							(button :onclick "reboot"
+								(label :text "" :class "power icon")
+							)
+						)
+				)
+				(button :onclick "reboot"
+					(label :text "⏻" :class "power icon")
+				)
+			)
+	)
+)
+
+(defwidget bottom[]
+	(box 	:class "bottom"
+		:orientation "v"
+		:space-evenly false
+		:halign "center"
+		:valign "end"
+		(network)
+		(controls)
+		(battery)
+		(power)
+	)
+)
+
+(defwindow master-bar
+	:monitor 0
+	:geometry (geometry 
+					:x "0px"
+			    :y "0px"
+			    :width "40px"
+			    :height "100%"
+			    :anchor "center left")
+	:stacking "fg"
+	:exclusive true
+	:focusable false
+	(box	:class "bar"
+		:orientation "v"
+		(top)
+		(center)
+		(bottom)
+	)
+)
+
+(defwidget stub[] (box))
+
+(defwindow slave-bar
+	:monitor 1
+	:geometry (geometry :x "0px"
+			    :y "0px"
+			    :width "40px"
+			    :height "100%"
+			    :anchor "center right")
+	:stacking "fg"
+	:exclusive true
+	:focusable false
+	(box	:class "bar"
+		:orientation "v"
+		(workspaces-slave)
+		(clock)
+		(stub)
+	)
+)

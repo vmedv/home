@@ -1,0 +1,98 @@
+$transparent: rgba(0,0,0,0.0);
+$bg: ${COLOR_BG};
+$fg: ${COLOR_FG};
+$red: ${COLOR_RED};
+$orange: ${COLOR_ORANGE};
+$yellow: ${COLOR_YELLOW};
+$green: ${COLOR_GREEN};
+$cyan: ${COLOR_CYAN};
+$blue: ${COLOR_BLUE};
+$magenta: ${COLOR_MAGENTA};
+
+* {
+  all: unset;
+  font-family: "Mononoki Nerd Font Mono";
+  font-size: 10pt;
+  background-color: $transparent;
+  color: $fg;
+}
+
+.workspace-entry {
+  font-size: 12pt;
+}
+
+.current {
+  color: $red;
+}
+
+.icon {
+  font-size: 24pt;
+}
+
+.top {
+  margin: 0 0 0 5px;
+}
+
+label.clock {
+  font-size: 16px;
+}
+
+.center {
+  margin: 0 0 0 5px;
+}
+
+box.clock {
+  background-color: $transparent;
+  padding: 5px 0px 5px 0px;
+}
+
+.power {
+  color: $red;
+}
+
+.battery {
+  color: $green;
+}
+
+.workspace-entry {
+  padding: 5px 5px 5px 5px;
+}
+
+.network {
+  color: $blue;
+}
+
+.mic {
+  color: $orange;
+}
+
+.volume {
+  color: $magenta;
+}
+
+.brightness {
+  color: $yellow;
+}
+
+scale trough {
+  all: unset;
+  background-color: $bg;
+  border-radius: 5px;
+  min-width: 10px;
+  margin: .3rem 0 .3rem 0;
+  min-height: 80px;
+}
+
+.brightness trough highlight {
+  background-color: $yellow;
+  border-radius: 5px;
+}
+.volume trough highlight {
+  background-color: $magenta;
+  border-radius: 5px;
+}
+
+.mic trough highlight {
+  background-color: $orange;
+  border-radius: 5px;
+}

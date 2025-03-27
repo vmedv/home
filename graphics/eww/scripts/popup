@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ "$1" = "launcher" ]; then
+$HOME/.local/bin/launcher
+elif [ "$1" = "wifi" ]; then
+kitty -e nmtui
+elif [ "$1" = "audio" ]; then
+pavucontrol
+fi
