@@ -15,6 +15,9 @@ rec {
   home.stateVersion = "24.11";
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-27.3.11"
+  ];
   home.packages = [
     inputs.zen.packages."${pkgs.system}".default
   ];

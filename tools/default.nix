@@ -17,5 +17,6 @@
     obsidian
     qbittorrent
     lorien
+    logseq
   ];
 }
