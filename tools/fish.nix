@@ -2,9 +2,9 @@
 
 let 
   theme-fish = pkgs.fetchFromGitHub { 
-    owner = "aneveux"; 
+    owner = "vmedv"; 
     repo = "theme-harleen"; 
-    rev = "caf53d792038e78faa7b6b6b98669abc171c5e64"; 
+    rev = "3f4c18f2b1e2d2667a48148bae388d7d473cb14d"; 
     hash = "sha256-DHGjy7UGzy+vuzHrw49KP0nePKvx7sMMMrPj2mbGoJA="; 
   }; 
   git-func = pkgs.fetchFromGitHub {
