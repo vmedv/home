@@ -11,8 +11,8 @@
     killall
     jq
     zip
+    xclip
     unzip
-    cpio
     acpi
     wl-clipboard
 

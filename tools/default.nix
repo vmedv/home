@@ -18,5 +18,6 @@
     qbittorrent
     lorien
     logseq
+    lutris
   ];
 }

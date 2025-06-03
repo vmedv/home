@@ -204,9 +204,9 @@
     ];
 
     windowrule = [
-      "float, ^(org.pulseaudio.pavucontrol)$"
-      "center, ^(org.pulseaudio.pavucontrol)$"
-      "size 800 500, ^(org.pulseaudio.pavucontrol)$"
+      "float, class:^(org.pulseaudio.pavucontrol)$"
+      "center, class:^(org.pulseaudio.pavucontrol)$"
+      "size 800 500, class:^(org.pulseaudio.pavucontrol)$"
     ];
 
     windowrulev2 = [

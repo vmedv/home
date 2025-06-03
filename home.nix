@@ -12,7 +12,7 @@ rec {
   home.username = "vmedv";
   home.homeDirectory = "/home/vmedv";
 
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.05";
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.permittedInsecurePackages = [

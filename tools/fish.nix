@@ -4,8 +4,8 @@ let
   theme-fish = pkgs.fetchFromGitHub { 
     owner = "vmedv"; 
     repo = "theme-harleen"; 
-    rev = "3f4c18f2b1e2d2667a48148bae388d7d473cb14d"; 
-    hash = "sha256-DHGjy7UGzy+vuzHrw49KP0nePKvx7sMMMrPj2mbGoJA="; 
+    rev = "d10f0500bce6ef1b22d847298c1f15c211bb0293"; 
+    hash = "sha256-8IK0f9GwdgRRO6NAijtCBJBA+w6BeXWTsSSBdnJAZBw="; 
   }; 
   git-func = pkgs.fetchFromGitHub {
     owner = "oh-my-fish";
@@ -23,6 +23,11 @@ in
       b = "broot";
       h = "hx";
     };
+    interactiveShellInit = ''
+    if not set -q base_shlvl
+       set -x base_shlvl $SHLVL
+    end
+    '';
   };
 
   programs.fzf = {
