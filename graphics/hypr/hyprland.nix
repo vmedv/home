@@ -27,9 +27,6 @@
       "spotify"
       "systemctl --user start hyprpolkitagent"
       "dunst"
-      "eww daemon"
-      "eww open master-bar"
-      "eww open slave-bar"
       "hyprctl setcursor cursors Bibata-Modern-Ice 24"
     ];
 
@@ -118,7 +115,7 @@
 
     input = {
       kb_layout = "us, ru";
-      kb_options = "grp:alt_shift_toggle";
+      kb_options = "grp:win_space_toggle";
 
       repeat_rate = 25;
       repeat_delay = 150;
@@ -145,7 +142,7 @@
       "$mod, Q, killactive,"
       "$mod SHIFT, P, exit,"
       "$mod, F, togglefloating,"
-      "$mod, Space, exec, $run"
+      "Alt, Space, exec, $run"
       "$mod, P, pseudo,"
       "$mod, L, exec, hyprlock"
       "$mod, J, togglesplit,"
@@ -213,11 +210,11 @@
       "noanim, class:^(org.telegram.desktop)$, title:^(Media viewer)$"
       "float, class:^(org.telegram.desktop)$, title:^(Media viewer)$"
 
-      "float, class:^(zen)$, title:^(Picture-in-Picture)$"
-      "size 480 270, class:^(zen)$, title:^(Picture-in-Picture)$"
-      "move 1400 780, class:^(zen)$, title:^(Picture-in-Picture)$"
-      "pin, class:^(zen)$, title:^(Picture-in-Picture)$"
-      "nodim, class:^(zen)$, title:^(Picture-in-Picture)$"
+      "float, title:^(Picture-in-Picture)$"
+      "size 480 270, title:^(Picture-in-Picture)$"
+      "move 1400 780, title:^(Picture-in-Picture)$"
+      "pin, title:^(Picture-in-Picture)$"
+      "nodim, title:^(Picture-in-Picture)$"
 
       "workspace 3 silent, class:^(org.telegram.desktop)$"
       "workspace 4 silent, class:^(Spotify)$"

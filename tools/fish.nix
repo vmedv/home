@@ -15,20 +15,20 @@ let
   };
 in 
 {
-  programs.fish = {
-    enable = true;
-    shellAbbrs = {
-      c = "clear";
-      l = "eza -lah";
-      b = "broot";
-      h = "hx";
-    };
-    interactiveShellInit = ''
-    if not set -q base_shlvl
-       set -x base_shlvl $SHLVL
-    end
-    '';
-  };
+  # programs.fish = {
+  #   enable = true;
+  #   shellAbbrs = {
+  #     c = "clear";
+  #     l = "eza -lah";
+  #     b = "broot";
+  #     h = "hx";
+  #   };
+  #   interactiveShellInit = ''
+  #   if not set -q base_shlvl
+  #      set -x base_shlvl $SHLVL
+  #   end
+  #   '';
+  # };
 
   programs.fzf = {
     enable = true;

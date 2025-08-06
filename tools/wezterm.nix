@@ -47,8 +47,8 @@ config.color_scheme = 'nix-taken'
 config.disable_default_key_bindings = true
 local mod = {}
 local act = wezterm.action
-mod.SUPER = 'ALT'
-mod.CSUPER = 'CTRL|ALT'
+mod.SUPER = 'CTRL|ALT'
+mod.CSUPER = 'SUPER|ALT'
 config.keys = {
    -- misc/useful --
    { key = 'F1', mods = mod.SUPER, action = 'ActivateCopyMode' },

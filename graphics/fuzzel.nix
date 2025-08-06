@@ -5,7 +5,7 @@
     enable = true;
     settings = {
       main = {
-        terminal = "${pkgs.wezterm}/bin/wezterm";
+        # terminal = "${pkgs.ghostty}/bin/ghostty -e ";
         use-bold = true;
         prompt = "\"󰘧 \"";
         layer = "overlay";

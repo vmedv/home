@@ -3,11 +3,12 @@
 
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     zen.url = "github:0xc000022070/zen-browser-flake";
+    ashell.url = "github:MalpenZibo/ashell";
     nix-colors.url = "github:misterio77/nix-colors";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

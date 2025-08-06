@@ -1,10 +1,13 @@
-{ pkgs, ... }:
+{ pkgs,  ... }:
 
 {
   imports = [
     ./helix.nix
+    ./ghostty.nix
     ./wezterm.nix
+    ./blesh.nix
     ./fish.nix
+    ./zellij.nix
   ];
   
   home.packages = with pkgs; [
@@ -18,6 +21,5 @@
     qbittorrent
     lorien
     logseq
-    lutris
   ];
 }

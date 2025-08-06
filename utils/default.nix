@@ -1,6 +1,10 @@
 { pkgs, ... }:
 
 {
+  imports = [
+    ./bash.nix
+  ];
+  
   services.clipman.enable = true;
   
   home.packages = with pkgs; [
@@ -14,10 +18,13 @@
     xclip
     unzip
     acpi
+    upower
     wl-clipboard
-
+    numix-icon-theme
     brightnessctl
     pavucontrol
+
+    nil
   ];
   
   programs.git = {
