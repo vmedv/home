@@ -7,10 +7,8 @@
     zen.url = "github:0xc000022070/zen-browser-flake";
     ashell.url = "github:MalpenZibo/ashell";
     nix-colors.url = "github:misterio77/nix-colors";
-    home-manager = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    home-manager.url = "github:nix-community/home-manager/master";
+    zed.url = "github:chaotic-cx/nyx";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, nix-colors, ... }: 

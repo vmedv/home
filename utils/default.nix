@@ -4,9 +4,9 @@
   imports = [
     ./bash.nix
   ];
-  
+
   services.clipman.enable = true;
-  
+
   home.packages = with pkgs; [
     ripgrep
     htop
@@ -24,9 +24,10 @@
     brightnessctl
     pavucontrol
 
+    nixd
     nil
   ];
-  
+
   programs.git = {
     enable = true;
     userName = "ivan medvedev";

@@ -19,28 +19,22 @@
   programs.bash = {
     enable = true;
     bashrcExtra = ''
-    if [[ $- == *i* ]]; then
-      # set -o vi
-      source "$(blesh-share)"/ble.sh --noattach
-    fi
+      if [[ $- == *i* ]]; then
+        # set -o vi
+        source "$(blesh-share)"/ble.sh --noattach
+      fi
 
-    export PROMPT_SPACE="master"
+      export PROMPT_SPACE="master"
 
-    # alias ll="${pkgs.eza}/bin/eza -l --git --icons"
-    # alias cat=${pkgs.bat}/bin/bat
+      export EZA_ICON_SPACING=2
 
-    source ${pkgs.fzf}/share/fzf/completion.bash
-    source ${pkgs.fzf}/share/fzf/key-bindings.bash
-          
-    export EZA_ICON_SPACING=2
+      blehook PRECMD-+=__prompt_precmd
+      __prompt_precmd() {
+        PS1='\e[33m[$PROMPT_SPACE]\e[0m \e[34m\u:\w \$\e[0m '
+      }
+      # eval "$(${pkgs.atuin}/bin/atuin init bash)"
 
-    blehook PRECMD-+=__prompt_precmd
-    __prompt_precmd() {
-      PS1='\e[33m[$PROMPT_SPACE]\e[0m \e[34m\u:\w \$\e[0m '
-    }
-    # eval "$(${pkgs.atuin}/bin/atuin init bash)"
-
-    [[ ! ''${BLE_VERSION-} ]] || ble-attach
+      [[ ! ''${BLE_VERSION-} ]] || ble-attach
 
     '';
   };

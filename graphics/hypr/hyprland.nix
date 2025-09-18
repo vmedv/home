@@ -18,7 +18,9 @@
     ];
 
     #monitors
-    monitor = ",preferred,auto,1";
+    monitor = [
+      ",preferred,auto,1"
+    ];
 
     # autostart
     exec-once = [
@@ -115,7 +117,7 @@
 
     input = {
       kb_layout = "us, ru";
-      kb_options = "grp:win_space_toggle";
+      kb_options = "grp:alt_shift_toggle";
 
       repeat_rate = 25;
       repeat_delay = 150;
@@ -142,7 +144,7 @@
       "$mod, Q, killactive,"
       "$mod SHIFT, P, exit,"
       "$mod, F, togglefloating,"
-      "Alt, Space, exec, $run"
+      "$mod, Space, exec, $run"
       "$mod, P, pseudo,"
       "$mod, L, exec, hyprlock"
       "$mod, J, togglesplit,"
