@@ -1,4 +1,4 @@
-{ pkgs, config , colorMode, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -7,6 +7,10 @@
     ./eww.nix
     ./fuzzel.nix
     ./ashell.nix
+    ./niri.nix
   ];
-  home.packages = [pkgs.kdePackages.qtsvg pkgs.quickshell];
+  home.packages = [
+    pkgs.kdePackages.qtsvg
+    pkgs.quickshell
+  ];
 }

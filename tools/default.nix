@@ -21,5 +21,6 @@
     qbittorrent
     lorien
     logseq
+    cachix
   ];
 }
