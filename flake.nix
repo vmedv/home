@@ -27,7 +27,10 @@
       homeConfigurations."vmedv" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = { inherit inputs nix-colors; };
-        modules = [ ./home.nix ];
+        modules = [
+          ./home.nix
+          inputs.niri.homeModules.niri
+        ];
       };
     };
 }

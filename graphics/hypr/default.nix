@@ -1,11 +1,11 @@
-{ pkgs, config, colorMode, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
     ./hyprlock.nix
     ./hyprpaper.nix
   ];
-  wayland.windowManager.hyprland = import ./hyprland.nix { inherit pkgs config; };
+  # wayland.windowManager.hyprland = import ./hyprland.nix { inherit pkgs config; };
   services.hypridle = import ./hypridle.nix;
 
   home.packages = with pkgs; [

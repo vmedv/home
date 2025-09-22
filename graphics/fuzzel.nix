@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ config, ... }:
 
 {
   programs.fuzzel = {
@@ -26,7 +26,7 @@
         selection-match = "${config.colorScheme.palette.base08}ff";
         counter = "${config.colorScheme.palette.base08}ff";
         border = "${config.colorScheme.palette.base08}ff";
-      }; 
+      };
     };
   };
 }

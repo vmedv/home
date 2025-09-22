@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 
 {
-  enable = true;
+  enable = false;
   plugins = with pkgs.hyprlandPlugins; [
     hyprspace
     hyprsplit

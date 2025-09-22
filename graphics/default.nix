@@ -3,11 +3,11 @@
 {
   imports = [
     ./cursor
-    ./hypr
+    # ./hypr
     ./eww.nix
     ./fuzzel.nix
-    ./ashell.nix
     ./niri.nix
+    ./waybar.nix
   ];
   home.packages = [
     pkgs.kdePackages.qtsvg

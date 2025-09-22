@@ -15,6 +15,10 @@ rec {
     ./modules/theme.nix
   ];
 
+  nixpkgs.overlays = [
+    inputs.niri.overlays.niri
+  ];
+
   home.username = "vmedv";
   home.homeDirectory = "/home/vmedv";
 
@@ -33,7 +37,7 @@ rec {
     BROWSER = "zen";
   };
 
-  # programs.home-manager.enable = true;
+  programs.home-manager.enable = true;
 
   colorMode = "light";
   colorScheme =

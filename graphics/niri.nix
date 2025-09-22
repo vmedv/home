@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   config,
   lib,
@@ -7,31 +6,15 @@
 }:
 
 {
-  nixpkgs.overlays = [
-    inputs.niri.overlays.niri
-  ];
-
-  packages = [
+  home.packages = [
     pkgs.xwayland-satellite-unstable
+    pkgs.swaylock
   ];
 
   programs.niri = {
     enable = true;
     package = pkgs.niri-unstable;
     settings = {
-      focus-ring = {
-        enable = true;
-        width = 10000;
-        active.color = "#00000055";
-      };
-      tab-indicator = {
-        position = "top";
-        gaps-between-tabs = 10;
-        # hide-when-single-tab = true;
-        place-within-column = true;
-        active.color = "red";
-      };
-
       clipboard.disable-primary = true;
       binds = with config.lib.niri.actions; {
         "XF86AudioRaiseVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+";
@@ -42,8 +25,8 @@
         "XF86MonBrightnessDown".action = spawn "brightnessctl" "s" "10%-";
 
         "Mod+Space".action = spawn "fuzzel";
-        "Mod+Enter".action = spawn "wezterm";
-        "Mod+Lock".action = spawn "swaylock";
+        "Mod+Return".action = spawn "wezterm";
+        "Mod+L".action = spawn "swaylock";
 
         "Mod+1".action = focus-workspace 1;
         "Mod+2".action = focus-workspace 2;
@@ -67,16 +50,17 @@
 
         "Mod+Shift+Q".action = quit;
 
-        "Mod+Plus".action = set-column-width "+10%";
+        "Mod+Equal".action = set-column-width "+10%";
         "Mod+Minus".action = set-column-width "-10%";
 
         "Print".action = screenshot { show-pointer = true; };
-        "Mod+Print".action = screenshoot-window;
+        "Mod+Print".action = screenshot-window;
         "Mod+Q".action = close-window;
-        "Mod+M".action = toggle-windowed-fullscreen;
+        "Mod+M".action = expand-column-to-available-width;
+        "Mod+Shift+M".action = fullscreen-window;
 
-        "Mod+Left".action = focus-window-or-monitor-left;
-        "Mod+Right".action = focus-window-or-monitor-right;
+        "Mod+Left".action = focus-column-or-monitor-left;
+        "Mod+Right".action = focus-column-or-monitor-right;
         "Mod+Up".action = focus-window-or-monitor-up;
         "Mod+Down".action = focus-window-or-monitor-down;
 
@@ -87,8 +71,9 @@
       screenshot-path = "~/screenshots";
       hotkey-overlay.skip-at-startup = true;
       spawn-at-startup = [
+        { argv = [ "dunst" ]; }
+        { argv = [ "waybar" ]; }
         { argv = [ "zen" ]; }
-        { argv = [ "telegram-desktop" ]; }
         { argv = [ "spotify" ]; }
       ];
       input = {
@@ -103,17 +88,20 @@
         touchpad = {
           click-method = "clickfinger";
           dwt = true;
+          natural-scroll = false;
         };
       };
       layout = {
         border = {
           enable = true;
           width = 5;
-          active = "rgb(255 0 0)";
-          inactive = "rgb(24 24 24)";
+          # active = "rgb(255 0 0)";
+          # inactive = "rgb(24 24 24)";
         };
       };
+      outputs."eDP-1".scale = 1;
       xwayland-satellite.path = "${lib.getExe pkgs.xwayland-satellite-unstable}";
+      gestures.hot-corners.enable = false;
     };
   };
 
